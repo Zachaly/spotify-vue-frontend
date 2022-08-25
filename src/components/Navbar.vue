@@ -3,17 +3,22 @@
         <div class="container">
             <div class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item">
+                    <router-link to="/" class="navbar-item">
                         Back to home page
-                    </a>
-                    <a class="navbar-item">
+                    </router-link>
+                    <router-link to="/search" class="navbar-item">
                         Search
-                    </a>
+                    </router-link>
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons">
-                            
+                            <router-link to="/login" class="button is-info">
+                                Login
+                            </router-link>
+                            <router-link to="/register" class="button is-primary">
+                                Register
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -24,7 +29,7 @@
 
 <script>
 
-export default({
+export default {
     name: 'navbar-comp'
-})
+}
 </script>
