@@ -3,6 +3,8 @@
 ## Project setup
 ```
 npm install
+To run this app properly you also need to use my Spotify API
+Just clone this repo https://github.com/Zachaly/Spotify/tree/api and run it throught Visual Studio
 ```
 
 ### Compiles and hot-reloads for development
