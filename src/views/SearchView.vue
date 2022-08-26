@@ -17,7 +17,7 @@
                         </figure>
                     </td>
                     <td>
-                        <router-link to="/musician" :id="musicianId">
+                        <router-link :to="{ name: 'musician', params: {id: musician.id}}">
                             {{musician.name}}
                         </router-link>
                     </td>
@@ -55,7 +55,7 @@
                         </figure>
                     </td>
                     <td>
-                        <router-link to="/album" :id="album.id">
+                        <router-link :to="{ name: 'album', params: { id: album.id } }">
                             {{album.name}}
                         </router-link>
                     </td>
@@ -74,9 +74,9 @@
                         </figure>
                     </td>
                     <td>
-                        <a to="/album" :id="song.albumId">
+                        <router-link :to="{ name: 'album', params: { id: song.albumId } }">
                             {{song.name}}
-                        </a>
+                        </router-link>
                     </td>
                 </tr>
             </table>

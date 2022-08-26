@@ -11,13 +11,13 @@
         </td>
 
         <td class="has-text-centered is-vcentered">
-            <router-link to="/album" :id="song.id">
+            <router-link :to="{ name: 'album', params: { id: song.albumId } }">
                 {{song.name}}
             </router-link>
         </td>
 
         <td class="has-text-centered is-vcentered">
-            <router-link to="/musician" :id="song.creatorId">
+            <router-link :to="{ name: 'musician', params: {id: song.creatorId}}">
                 {{song.creatorName}}
             </router-link>
         </td>

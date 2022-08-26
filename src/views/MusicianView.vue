@@ -22,11 +22,11 @@
     <section class="section">
         <table class="table is-striped is-fullwidth">
             <caption class="title">Popular</caption>
-            <Song :index="index" :song="song" v-for="(song, index) in songs" :key="song.id"/>
+            <Song :index="index" :song="song" v-for="(song, index) in musician.topSongs" :key="song.id"/>
         </table>
     </section>
 
-    <AlbumSection title="Popular albums" :albums="albums"/>
+    <AlbumSection title="Popular albums" :albums="musician.topAlbums"/>
 </template>
 
 <script>
@@ -40,25 +40,36 @@ export default {
     },
     data() {
         return {
-            musician: null,
-            albums: [],
-            songs: []
+            musician: {
+                topSongs: [],
+                topAlbums: [],
+                name: "",
+                description: "",
+                numberOfFollowers: 0
+            },
         };
     },
     methods: {
         getMusician() {
-            return axios.get("/anon/musician/" + this.id).
-                then(res => {
+            return axios.get("/anon/musician/" + this.id)
+                .then(res => {
                     this.musician = res.data
 
                     function comparePlays(a, b){
                         return b.plays - a.plays
                     }
 
-                    this.albums = this.musician.topAlbums.sort(comparePlays);
-                    this.songs = this.musician.topSongs;
-                }).
-                catch(error => console.log(error));
+                    this.musician.topAlbums.sort(comparePlays)
+                    this.musician.topSongs.forEach(song => {
+                        song.creatorId = this.id
+                        song.creatorName = this.musician.name
+                    })
+
+                    this.musician.topAlbums.forEach(album => {
+                        album.creatorId = this.id
+                        album.creatorName = this.musician.name
+                    })
+                }).catch(error => console.log(error));
         }
     },
     created() {
