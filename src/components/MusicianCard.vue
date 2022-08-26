@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <router-link to="/musician" :id="musician.id">
+        <router-link :to="{ name: 'musician', params: {id: musician.id}}" >
             <div class="card-image">
                 <figure class="image is-square">
                     <img :src="image" :alt="musician.name">
