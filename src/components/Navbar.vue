@@ -12,7 +12,12 @@
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <div class="buttons">
+                        <div class="buttons" v-if="authorization">
+                            <button class="button is-danger" @click="logout">
+                                Logout
+                            </button>
+                        </div>
+                        <div class="buttons" v-else>
                             <router-link to="/login" class="button is-info">
                                 Login
                             </router-link>
@@ -28,8 +33,13 @@
 </template>
 
 <script>
-
 export default {
-    name: 'navbar-comp'
+    name: 'navbar-comp',
+    data(){
+        return{
+            authorization: false
+        }
+    },
+    emits: ['logout']
 }
 </script>
