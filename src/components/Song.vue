@@ -4,6 +4,10 @@
             {{index + 1}}
         </td>
 
+        <td class="has-text-centered is-vcentered">
+            <button class="button is-success" @click="this.$emit('set-song', {index, songs})">Play</button>
+        </td>
+
         <td>
             <figure class="image is-48x48">
                 <img :src="image" :alt="song.name" />
@@ -41,6 +45,7 @@ export default {
         image(){
             return axios.defaults.baseURL + 'File/Album/' + this.song.albumId
         }
-    }
+    },
+    emits: ['set-song']
 }
 </script>

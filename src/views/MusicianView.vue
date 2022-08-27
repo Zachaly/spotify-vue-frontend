@@ -20,10 +20,7 @@
         </div>
     </section>
     <section class="section">
-        <table class="table is-striped is-fullwidth">
-            <caption class="title">Popular</caption>
-            <Song :index="index" :song="song" v-for="(song, index) in musician.topSongs" :key="song.id"/>
-        </table>
+        <SongTable :songs="musician.topSongs" title="Popular" @set-song="emit"/>
     </section>
 
     <AlbumSection title="Popular albums" :albums="musician.topAlbums"/>
@@ -32,7 +29,7 @@
 <script>
 import axios from 'axios';
 import AlbumSection from '../components/AlbumSection.vue';
-import Song from '../components/Song.vue'
+import SongTable from '@/components/SongTable.vue';
 
 export default {
     props: {
@@ -70,6 +67,9 @@ export default {
                         album.creatorName = this.musician.name
                     })
                 }).catch(error => console.log(error));
+        },
+        emit(obj){
+            this.$emit('set-song', obj)
         }
     },
     created() {
@@ -80,6 +80,7 @@ export default {
             return axios.defaults.baseURL + "file/musician/" + this.id;
         }
     },
-    components: {  AlbumSection, Song }
+    components: { AlbumSection, SongTable },
+    emits: ['set-song']
 }
 </script>

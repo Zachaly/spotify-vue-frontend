@@ -1,19 +1,10 @@
 <template>
-    <table class="table is-fullwidth">
-        <caption>
-            <p class="title">
-                {{album.name}}
-            </p>
-            <p class="subtitle">{{album.songCount}}</p>
-        </caption>
-
-        <Song :index="index" :song="song" v-for="(song, index) in album.songs" :key="song.id"/>
-    </table>
+    <SongTable :title="album.name" :songs="album.songs" :subtitle="album.songCount" @set-song="emit"/>
 </template>
 
 <script>
 import axios from 'axios';
-import Song from '@/components/Song.vue';
+import SongTable from '@/components/SongTable.vue';
 
 export default {
     props: {
@@ -21,7 +12,11 @@ export default {
     },
     data() {
         return {
-            album: null
+            album: {
+                name: '',
+                songCount: 0,
+                songs: []
+            }
         };
     },
     methods: {
@@ -29,11 +24,15 @@ export default {
             axios.get("/anon/album/" + this.id)
                 .then(res => this.album = res.data)
                 .catch(error => console.log(error));
+        },
+        emit(obj){
+            this.$emit('set-song', obj)
         }
     },
     created(){
         this.getAlbum();
     },
-    components: { Song }
+    components: { SongTable },
+    emits: ['set-song']
 }
 </script>
