@@ -3,7 +3,7 @@
         <router-link :to="{ name: 'album', params: { id: album.id } }">
             <div class="card-image">
                 <figure class="image is-square">
-                    <img :src="image" :alt="album.name">
+                    <img :src="$image('album', album.id)" :alt="album.name">
                 </figure>
             </div>
             <div class="card-content">
@@ -19,17 +19,10 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     props:{
         album: Object
     },
-    computed: {
-        image(){
-            return axios.defaults.baseURL + 'File/Album/' + this.album.id
-        },
-    }
 }
 </script>
 

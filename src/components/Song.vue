@@ -10,7 +10,7 @@
 
         <td>
             <figure class="image is-48x48">
-                <img :src="image" :alt="song.name" />
+                <img :src="$image('album', song.albumId)" :alt="song.name" />
             </figure>
         </td>
 
@@ -33,18 +33,12 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     name: 'song-comp',
     props:{
         index: Number,
         song: Object
-    },
-    computed:{
-        image(){
-            return axios.defaults.baseURL + 'File/Album/' + this.song.albumId
-        }
     },
     emits: ['set-song']
 }

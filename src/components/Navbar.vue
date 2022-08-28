@@ -12,11 +12,11 @@
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <div class="buttons" v-if="authorization">
-                            <router-link v-if="userId" class="button" :to="{ name: 'userprofile', params: {id: userId}}">
+                        <div class="buttons" v-if="this.$store.state.authorized">
+                            <router-link v-if="this.$store.state.userId" class="button" :to="{ name: 'userprofile', params: {id: this.$store.state.userId}}">
                                 Profile
                             </router-link>
-                            <button class="button is-danger" @click="logout">
+                            <button class="button is-danger" @click="this.$store.dispatch('logout')" >
                                 Logout
                             </button>
                         </div>
@@ -38,12 +38,5 @@
 <script>
 export default {
     name: 'navbar-comp',
-    data(){
-        return{
-            authorization: false,
-            userId: ''
-        }
-    },
-    emits: ['logout']
 }
 </script>

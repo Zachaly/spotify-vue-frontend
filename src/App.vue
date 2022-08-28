@@ -1,7 +1,7 @@
 <template>
-  <Navbar ref="navbar" />
+  <Navbar/>
   <div class="container">
-    <router-view @set-song="setSongs" @authorize="authorize"/>
+    <router-view @set-song="setSongs"/>
     <AudioBar ref="audio" :songs="songs"/>
     <div style="height: 200px"></div>
   </div>
@@ -10,7 +10,6 @@
 <script>
 import Navbar from './components/Navbar.vue';
 import AudioBar from './components/AudioBar.vue';
-import axios from 'axios';
 
 export default {
   components: { Navbar, AudioBar },
@@ -28,15 +27,6 @@ export default {
         this.$refs.audio.playSong()
       }, 100);
     },
-    authorize(){
-      this.$refs.navbar.authorization = true;
-      axios.get('user/id').
-        then(res => this.$refs.navbar.userId = res.data);
-    },
-    logout(){
-      this.$refs.navbar.authorization = false;
-      axios.defaults.headers.common.Authorization = ''
-    }
   }
 }
 </script>

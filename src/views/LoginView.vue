@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
     data(){
@@ -38,14 +37,10 @@ export default {
     },
     methods: {
         login(){
-            axios.post('User/Login/' + this.credentials.email + '/' + this.credentials.password)
-            .then(res => {
-                axios.defaults.headers.common.Authorization = 'Bearer ' + res.data.auth_token
-                this.$emit('authorize');
-            }).then(() => this.$router.push('/'))
-            .catch(error => this.error = error.response.data)
+            this.$store.dispatch('login', this.credentials)
+                .then(() => this.$router.push('/'))
+                .catch(error => this.error = error.response.data)
         }
-    },
-    emits: ['authorize']
+    }
 }
 </script>

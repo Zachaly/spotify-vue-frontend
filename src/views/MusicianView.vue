@@ -3,7 +3,7 @@
         <div class="columns">
             <div class="column is-2">
                 <figure class="image is-4by3">
-                    <img :src="image" :alt="musician.name" />
+                    <img :src="$image('musician', id)" :alt="musician.name" />
                 </figure>
             </div>
             <div class="column">
@@ -74,11 +74,6 @@ export default {
     },
     created() {
         this.getMusician();
-    },
-    computed: {
-        image() {
-            return axios.defaults.baseURL + "file/musician/" + this.id;
-        }
     },
     components: { AlbumSection, SongTable },
     emits: ['set-song']
