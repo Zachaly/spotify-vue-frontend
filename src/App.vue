@@ -5,7 +5,6 @@
     <AudioBar ref="audio" :songs="songs"/>
     <div style="height: 200px"></div>
   </div>
-  
 </template>
 
 <script>
@@ -31,6 +30,8 @@ export default {
     },
     authorize(){
       this.$refs.navbar.authorization = true;
+      axios.get('user/id').
+        then(res => this.$refs.navbar.userId = res.data);
     },
     logout(){
       this.$refs.navbar.authorization = false;

@@ -5,6 +5,7 @@ import MusicianView from '../views/MusicianView.vue'
 import AlbumView from '../views/AlbumView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import UserProfileView from '../views/UserProfileView.vue'
 
 const routes = [
   {
@@ -38,6 +39,12 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterView
+  },
+  {
+    path: '/userprofile/:id',
+    name: 'userprofile',
+    component: UserProfileView,
+    props: true
   }
 ]
 

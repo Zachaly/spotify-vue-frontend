@@ -13,6 +13,9 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons" v-if="authorization">
+                            <router-link v-if="userId" class="button" :to="{ name: 'userprofile', params: {id: userId}}">
+                                Profile
+                            </router-link>
                             <button class="button is-danger" @click="logout">
                                 Logout
                             </button>
@@ -37,7 +40,8 @@ export default {
     name: 'navbar-comp',
     data(){
         return{
-            authorization: false
+            authorization: false,
+            userId: ''
         }
     },
     emits: ['logout']
