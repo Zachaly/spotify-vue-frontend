@@ -1,7 +1,7 @@
 import axios from "axios";
-import { createStore } from "vuex";
 
-export default createStore({
+export default {
+    namespaced: true,
     state(){
         return{
             authorized: false,
@@ -26,10 +26,10 @@ export default createStore({
                         .then(res => commit('changeUserId', res.data));
                 });
         },
-        logout({commit}){
+        logout({ commit }){
             commit('changeAuthorization', false);
             commit('changeUserId', '')
             axios.defaults.headers.common.Authorization = ''
         }
     }
-})
+}

@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         login(){
-            this.$store.dispatch('login', this.credentials)
+            this.$store.dispatch('authorization/login', this.credentials)
                 .then(() => this.$router.push('/'))
                 .catch(error => this.error = error.response.data)
         }

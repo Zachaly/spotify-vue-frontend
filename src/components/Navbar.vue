@@ -12,11 +12,11 @@
                 </div>
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <div class="buttons" v-if="this.$store.state.authorized">
-                            <router-link v-if="this.$store.state.userId" class="button" :to="{ name: 'userprofile', params: {id: this.$store.state.userId}}">
+                        <div class="buttons" v-if="auth">
+                            <router-link v-if="userId" class="button" :to="{ name: 'userprofile', params: {id: userId}}">
                                 Profile
                             </router-link>
-                            <button class="button is-danger" @click="this.$store.dispatch('logout')" >
+                            <button class="button is-danger" @click="this.$store.dispatch('authorization/logout')" >
                                 Logout
                             </button>
                         </div>
@@ -36,7 +36,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     name: 'navbar-comp',
+    computed: mapState({
+        auth: state => state.authorization.authorized,
+        userId: state => state.authorization.userId
+    })
 }
 </script>

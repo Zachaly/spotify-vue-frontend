@@ -26,7 +26,7 @@
                 <label class="label">Confirm Password</label>
                 <div class="control">
                     <input class="input" type="password" v-model="confirmPassword" placeholder="Confirm Password"/>
-                    <span class="help is-warning" v-if="!passwordMatch">S</span>
+                    <span class="help is-warning" v-if="!passwordMatch"></span>
                 </div>
             </div>
             <div class="field ">
@@ -53,8 +53,10 @@ export default{
             emailErrors: [],
             passwordErrors: [],
             usernameErrors: [],
-            passwordMatch: true
         }
+    },
+    computed:{
+        passwordMatch: () => this.registerModel.password === this.confirmPassword
     },
     methods: {
         register(){

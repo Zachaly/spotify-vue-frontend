@@ -13,7 +13,7 @@
                 <tr :key="musician.id" v-for="musician in musicians">
                     <td>
                         <figure class="image is-48x48">
-                            <img :src="$image('musician', musician.id)" :alt="musician.name" />
+                            <img :src="$file('musician', musician.id)" :alt="musician.name" />
                         </figure>
                     </td>
                     <td>
@@ -32,7 +32,7 @@
                 <tr :key="user.id" v-for="user in users">
                     <td>
                         <figure class="image is-48x48">
-                            <img :src="$image('profile', user.id)" :alt="user.name" />
+                            <img :src="$file('profile', user.id)" :alt="user.name" />
                         </figure>
                     </td>
                     <td>
@@ -51,7 +51,7 @@
                 <tr :key="album.id" v-for="album in albums">
                     <td>
                         <figure class="image is-48x48">
-                            <img :src="$image('album', album.id)" :alt="album.name" />
+                            <img :src="$file('album', album.id)" :alt="album.name" />
                         </figure>
                     </td>
                     <td>
@@ -70,7 +70,7 @@
                 <tr :key="song.id" v-for="song in songs">
                     <td>
                         <figure class="image is-48x48">
-                            <img :src="$image('album', song.albumId)" :alt="song.name" />
+                            <img :src="$file('album', song.albumId)" :alt="song.name" />
                         </figure>
                     </td>
                     <td>
@@ -89,7 +89,7 @@
                 <tr :key="playlist.id" v-for="playlist in playlists">
                     <td>
                         <figure class="image is-48x48">
-                            <img :src="$image('playlist', playlist.id)" :alt="playlist.name" />
+                            <img :src="$file('playlist', playlist.id)" :alt="playlist.name" />
                         </figure>
                     </td>
                     <td>

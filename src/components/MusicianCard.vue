@@ -3,7 +3,7 @@
         <router-link :to="{ name: 'musician', params: {id: musician.id}}" >
             <div class="card-image">
                 <figure class="image is-square">
-                    <img :src="$image('musician', musician.id)" :alt="musician.name">
+                    <img :src="$file('musician', musician.id)" :alt="musician.name">
                 </figure>
             </div>
             <div class="card-content">

@@ -3,7 +3,7 @@
         <div class="columns">
             <div class="column is-2">
                 <figure class="image is-4by3">
-                    <img :src="$image('profile', this.id)"/>
+                    <img :src="$file('profile', this.id)"/>
                 </figure>
             </div>
             <div class="column">
@@ -57,10 +57,5 @@ export default{
     created(){
         this.getUser
     },
-    computed: {
-        image(){
-            return axios.defaults.baseURL + 'File/Profile/' + this.id
-        }
-    }
 }
 </script>

@@ -10,7 +10,7 @@
 
         <td>
             <figure class="image is-48x48">
-                <img :src="$image('album', song.albumId)" :alt="song.name" />
+                <img :src="$file('album', song.albumId)" :alt="song.name" />
             </figure>
         </td>
 

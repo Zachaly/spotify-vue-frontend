@@ -3,7 +3,7 @@
         <div class="columns">
             <div class="column is-2">
                 <figure class="image is-4by3">
-                    <img :src="$image('musician', id)" :alt="musician.name" />
+                    <img :src="$file('musician', id)" :alt="musician.name" />
                 </figure>
             </div>
             <div class="column">
