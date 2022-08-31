@@ -16,7 +16,7 @@
                             <router-link v-if="userId" class="button" :to="{ name: 'userprofile', params: {id: userId}}">
                                 Profile
                             </router-link>
-                            <button class="button is-danger" @click="this.$store.dispatch('authorization/logout')" >
+                            <button class="button is-danger" @click="this.$store.dispatch('authorization/logout'); $router.push('/')" >
                                 Logout
                             </button>
                         </div>
