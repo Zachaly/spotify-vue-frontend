@@ -29,10 +29,16 @@
         <td class="has-text-centered is-vcentered">
             {{song.plays}}
         </td>
+
+        <td class="has-text-centered is-vcentered" v-if="this.$store.state.authorization.authorized">
+            <button class="button is-danger" v-if="liked" @click="likeSong">Dislike</button>
+            <button class="button is-success" v-else @click="likeSong">Like</button>
+        </td>
     </tr>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
     name: 'song-comp',
@@ -40,6 +46,21 @@ export default {
         index: Number,
         song: Object
     },
-    emits: ['set-song']
+    data(){
+        return { liked: false }
+    },
+    created(){
+        if(this.$store.state.authorization.authorized){
+            axios.get('user/isSongLiked/' + this.song.id)
+            .then(res => this.liked = res.data)
+        }
+    },
+    emits: ['set-song'],
+    methods:{
+        likeSong(){
+            axios.post('like/likesong/' + this.song.id).
+            then(() => this.liked = !this.liked)
+        }
+    }
 }
 </script>

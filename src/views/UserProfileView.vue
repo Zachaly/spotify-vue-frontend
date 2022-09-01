@@ -13,7 +13,10 @@
                 <h2 class="subtitle">
                     Liked Albums: {{user.likedAlbums.length}} <br />
                     Followed Musicians: {{user.followedMusicians.length}} <br />
-                    Liked Songs: {{user.likedSongsCount}} 
+                    Liked Songs: {{user.likedSongsCount}} <br/>
+                    <router-link :to="{name: 'userlikedsongs', params: {id: this.id}}">
+                        See all
+                    </router-link>
                 </h2>
             </div>
         </div>
