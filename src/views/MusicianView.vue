@@ -9,9 +9,13 @@
             <div class="column">
                 <h1 class="title">
                     {{musician.name}} 
+                    <span class="ml-2" v-if="this.$store.state.authorization.authorized">
+                        <button class="button" @click="follow" v-if="followed">Unfollow</button>
+                        <button class="button" @click="follow" v-else>Follow</button>
+                    </span>
                 </h1>
                 <h2 class="subtitle">
-                    Followed by {{musician.numberOfFollowers}}
+                    Followed by {{musician.numberOfFollowers}} people
                 </h2>
                 <div class="content">
                     {{musician.description}}
@@ -44,6 +48,7 @@ export default {
                 description: "",
                 numberOfFollowers: 0
             },
+            followed: false
         };
     },
     methods: {
@@ -70,10 +75,17 @@ export default {
         },
         emit(obj){
             this.$emit('set-song', obj)
+        },
+        follow(){
+            axios.post('like/followmusician/' + this.id).then(() => this.followed = !this.followed)
         }
     },
     created() {
         this.getMusician();
+
+        if(this.$store.state.authorization.authorized){
+            axios.get('user/ismusicianfollowed/' + this.id).then(res => this.followed = res.data)
+        }
     },
     components: { AlbumSection, SongTable },
     emits: ['set-song']
