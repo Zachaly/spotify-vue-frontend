@@ -3,7 +3,7 @@
   <div class="container">
     <router-view @set-song="setSongs"/>
     <AudioBar ref="audio" :songs="songs"/>
-    <div style="height: 200px"></div>
+    <div style="height: 300px"></div>
   </div>
 </template>
 

@@ -26,7 +26,7 @@ export default {
     data(){
         return {
             playlistModel: {
-                name: '',
+                name: 'New playlist',
                 coverPicture: null
             }
         }
@@ -50,7 +50,7 @@ export default {
             .catch(error => console.log(error))
         }
     },
-    emits: ['add-playlist']
+    emits: ['add-playlist', 'cancel']
 }
 </script>
 

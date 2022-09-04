@@ -34,33 +34,39 @@
             <button class="button is-danger" v-if="liked" @click="likeSong">Dislike</button>
             <button class="button is-success" v-else @click="likeSong">Like</button>
         </td>
+
+        <td class="has-text-centered is-vcentered" v-if="this.$store.state.authorization.authorized">
+            <AddToPlaylist :songId="song.id"/>
+        </td>
     </tr>
 </template>
 
 <script>
 import axios from 'axios'
+import AddToPlaylist from './AddToPlaylist.vue'
 
 export default {
-    name: 'song-comp',
-    props:{
+    name: "song-comp",
+    props: {
         index: Number,
         song: Object
     },
-    data(){
-        return { liked: false }
+    data() {
+        return { liked: false };
     },
-    created(){
-        if(this.$store.state.authorization.authorized){
-            axios.get('user/isSongLiked/' + this.song.id)
-            .then(res => this.liked = res.data)
+    created() {
+        if (this.$store.state.authorization.authorized) {
+            axios.get("user/isSongLiked/" + this.song.id)
+                .then(res => this.liked = res.data);
         }
     },
-    emits: ['set-song'],
-    methods:{
-        likeSong(){
-            axios.post('like/likesong/' + this.song.id).
-            then(() => this.liked = !this.liked)
+    emits: ["set-song"],
+    methods: {
+        likeSong() {
+            axios.post("like/likesong/" + this.song.id).
+                then(() => this.liked = !this.liked);
         }
-    }
+    },
+    components: { AddToPlaylist }
 }
 </script>

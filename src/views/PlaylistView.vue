@@ -25,7 +25,7 @@
             </div>
         </div>
     </section>
-    <SongTable :songs="playlist.songs"/>
+    <SongTable :songs="playlist.songs" @set-song="emit"/>
 </template>
 
 <script>
@@ -58,7 +58,10 @@ export default {
             axios.delete('playlist/removePlaylist/' + this.id)
             .then(() => this.$router.push('/userprofile/' + this.playlist.creatorId))
             .catch(error => console.log(error))
-        }
+        },
+        emit(obj){
+            this.$emit('set-song', obj)
+        },
     },
     created(){
         this.getPlaylist()
