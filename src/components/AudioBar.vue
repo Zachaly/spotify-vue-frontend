@@ -1,5 +1,5 @@
 <template>
-    <section class="section audio-bar" v-if="songs.length > 0">
+    <section class="section audio-bar" v-if="this.songs.length > 0">
         <div class="p-4 main-div">
             <p class="title" id="audio-song-name">
                 {{currentSong.name}}
@@ -16,43 +16,38 @@
 
 <script>
 import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
-    props:{
-        songs: Array,
-    },
     data(){
         return {
-            currentIndex: 0,
             player: new Audio(),
             isPlaying: true
         }
     },
     computed:{
-        file(){
-            return axios.defaults.baseURL + 'File/Song/' + this.currentSong.id
-        },
+        ...mapState({
+            songs: state => state.songs.songs,
+            currentIndex: state => state.songs.currentIndex
+        }),
+        // using computed instead of getter bsc it is said in documentation that getters have some problems with reactivness
         currentSong(){
             return this.songs[this.currentIndex]
-        }
+        },
     },
     methods: {
         nextSong(){
-            this.currentIndex++;
-            if(this.currentIndex >= this.songs.length)
-                this.currentIndex--;
+            this.$store.dispatch('songs/nextSong');
             
             this.playSong()
         },
         prevSong(){
-            this.currentIndex--;
-             if(this.currentIndex < 0)
-                this.currentIndex = 0
+            this.$store.dispatch('songs/prevSong');
             
             this.playSong()
         },
         playSong(){
-            this.player.src = this.file
+            this.player.src = this.$file('song', this.currentSong.id) 
             this.player.play();
 
             axios.post('User/AddPlay/' + this.currentSong.id)

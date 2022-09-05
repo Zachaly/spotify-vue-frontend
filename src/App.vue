@@ -1,8 +1,8 @@
 <template>
   <Navbar/>
   <div class="container">
-    <router-view @set-song="setSongs"/>
-    <AudioBar ref="audio" :songs="songs"/>
+    <router-view @set-song="setSong"/>
+    <AudioBar ref="audio"/>
     <div style="height: 300px"></div>
   </div>
 </template>
@@ -13,16 +13,8 @@ import AudioBar from './components/AudioBar.vue';
 
 export default {
   components: { Navbar, AudioBar },
-  data(){
-    return{
-      songs: [],
-      songIndex: 0
-    }
-  },
   methods: {
-    setSongs(obj){
-      this.songs = obj.songs;
-      this.$refs.audio.currentIndex = obj.index;
+    setSong(){
       setTimeout(() => {
         this.$refs.audio.playSong()
       }, 100);

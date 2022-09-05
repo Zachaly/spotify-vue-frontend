@@ -7,9 +7,9 @@
         </div>
         <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
-                <div class="dropdown-item">
+                <div class="dropdown-item" v-for="playlist in playlists" :key="playlist.id">
                     <div class="columns">
-                        <div class="column" v-for="playlist in playlists" :key="playlist.id">
+                        <div class="column">
                             <button v-if="playlist.containsSong" class="button is-warning is-fullwidth" @click="removeSong(playlist)">
                                 Remove from '{{playlist.name}}'
                             </button>
@@ -48,7 +48,6 @@ export default {
             })
         },
         addSong(playlist){
-            console.log(playlist)
             axios.post(`playlist/addSong/${playlist.id}/${this.songId}`).then(() => playlist.containsSong = true)
         },
         removeSong(playlist){

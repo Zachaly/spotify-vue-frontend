@@ -5,7 +5,7 @@
         </td>
 
         <td class="has-text-centered is-vcentered">
-            <button class="button is-success" @click="this.$emit('set-song', {index, songs})">Play</button>
+            <button class="button is-success" @click="this.$emit('set-song', index)">Play</button>
         </td>
 
         <td>
@@ -30,12 +30,12 @@
             {{song.plays}}
         </td>
 
-        <td class="has-text-centered is-vcentered" v-if="this.$store.state.authorization.authorized">
+        <td class="has-text-centered is-vcentered" v-if="this.authorized">
             <button class="button is-danger" v-if="liked" @click="likeSong">Dislike</button>
             <button class="button is-success" v-else @click="likeSong">Like</button>
         </td>
 
-        <td class="has-text-centered is-vcentered" v-if="this.$store.state.authorization.authorized">
+        <td class="has-text-centered is-vcentered" v-if="this.authorized">
             <AddToPlaylist :songId="song.id"/>
         </td>
     </tr>
@@ -44,6 +44,7 @@
 <script>
 import axios from 'axios'
 import AddToPlaylist from './AddToPlaylist.vue'
+import { mapState } from 'vuex';
 
 export default {
     name: "song-comp",
@@ -51,11 +52,14 @@ export default {
         index: Number,
         song: Object
     },
+    computed: mapState({
+        authorized: state => state.authorization.authorized
+    }),
     data() {
         return { liked: false };
     },
     created() {
-        if (this.$store.state.authorization.authorized) {
+        if (this.authorized) {
             axios.get("user/isSongLiked/" + this.song.id)
                 .then(res => this.liked = res.data);
         }
@@ -65,7 +69,7 @@ export default {
         likeSong() {
             axios.post("like/likesong/" + this.song.id).
                 then(() => this.liked = !this.liked);
-        }
+        },
     },
     components: { AddToPlaylist }
 }
