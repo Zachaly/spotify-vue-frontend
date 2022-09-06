@@ -8,6 +8,7 @@ import RegisterView from '../views/RegisterView.vue'
 import UserProfileView from '../views/UserProfileView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import LikedSongsView from '../views/LikedSongsView.vue'
+import AdminView from '../views/AdminView.vue'
 
 const routes = [
   {
@@ -59,6 +60,11 @@ const routes = [
     name: 'userlikedsongs',
     component: LikedSongsView,
     props: true
+  },
+  {
+    path: '/admin',
+    name: "adminpanel",
+    component: AdminView
   }
 ]
 

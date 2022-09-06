@@ -13,6 +13,9 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="buttons" v-if="auth">
+                            <router-link v-if="claim === 'Admin' || claim === 'Manager'" class="button is-warning" to="/admin">
+                                Admin panel
+                            </router-link>
                             <router-link v-if="userId" class="button" :to="{ name: 'userprofile', params: {id: userId}}">
                                 Profile
                             </router-link>
@@ -42,7 +45,8 @@ export default {
     name: 'navbar-comp',
     computed: mapState({
         auth: state => state.authorization.authorized,
-        userId: state => state.authorization.userId
+        userId: state => state.authorization.userId,
+        claim: state => state.authorization.claim
     })
 }
 </script>

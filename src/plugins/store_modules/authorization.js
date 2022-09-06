@@ -5,7 +5,8 @@ export default {
     state(){
         return{
             authorized: false,
-            userId: ''
+            userId: '',
+            claim: ''
         }
     },
     mutations: {
@@ -14,6 +15,9 @@ export default {
         },
         changeAuthorization(state, value){
             state.authorized = value
+        },
+        changeUserClaim(state, value){
+            state.claim = value
         }
     },
     actions: {
@@ -24,11 +28,14 @@ export default {
                     commit('changeAuthorization', true)
                     axios.get('user/id')
                         .then(res => commit('changeUserId', res.data));
+                    
+                    axios.get('user/claim').then(res => commit('changeUserClaim', res.data))
                 });
         },
         logout({ commit }){
             commit('changeAuthorization', false);
             commit('changeUserId', '')
+            commit('changeUserClaim', '')
             axios.defaults.headers.common.Authorization = ''
         }
     }
