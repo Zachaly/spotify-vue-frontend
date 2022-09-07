@@ -62,24 +62,24 @@ export default {
             musicians: [],
             musicianModel: { id: 0, name: "", description: "", fileName: "placeholder.jpg" },
             file: null,
-            claim: 'manager'
+            apiPath: ''
         }
     },
     mounted() {
-        this.claim = this.$store.state.authorization.claim;
+        this.apiPath = `${this.$store.state.authorization.claim}/musician/`
         this.getMusicians();
     },
     methods: {
         getMusicians() {
             this.loading = true;
-            axios.get('/' + this.claim + '/musician').
+            axios.get(this.apiPath).
                 then(res => this.musicians = res.data).
                 catch(error => console.log(error)).
                 then(() => this.loading = false);
         },
         getMusicianForEdit(id) {
             this.loading = true;
-            axios.get('/' + this.claim + '/musician/' + id).
+            axios.get(this.apiPath + id).
                 then(res => {
                     console.log(res);
                     this.musicianModel = {
@@ -94,7 +94,7 @@ export default {
         addMusician() {
             this.loading = true;
             this.uploadFile().then(() => {
-                axios.post('/' + this.claim + '/musician', this.musicianModel).
+                axios.post(this.apiPath, this.musicianModel).
                     then(res => {
                         this.musicians.push(res.data);
                         this.editing = false;
@@ -116,7 +116,7 @@ export default {
         },
         updateMusician() {
             this.loading = true;
-            axios.put('/' + this.claim + '/musician', this.musicianModel).
+            axios.put(this.apiPath, this.musicianModel).
                 then(res => {
                     this.editing = false;
                     this.musicians.splice(this.musicianIndex, 1, res.data)
@@ -125,7 +125,7 @@ export default {
                 then(() => this.loading = false);
         },
         deleteMusician(id, index) {
-            axios.delete('/' + this.claim + '/musician/' + id).
+            axios.delete(this.apiPath + id).
                 then(() => this.musicians.splice(index, 1)).
                 catch(error => console.log(error)).
                 then(() => this.loading = false);
